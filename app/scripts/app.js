@@ -8,5 +8,4 @@
  *
  * Main module of the application.
  */
-angular
-  .module('checkmateLifeWebAppApp', []);
+angular.module('checkmateLifeApp', []);
