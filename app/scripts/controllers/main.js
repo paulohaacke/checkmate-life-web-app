@@ -7,11 +7,11 @@
  * # MainCtrl
  * Controller of the checkmateLifeWebAppApp
  */
-angular.module('checkmateLifeWebAppApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+angular.module('checkmateLifeApp')
+    .controller('MainCtrl', function() {
+        this.awesomeThings = [
+            'HTML5 Boilerplate',
+            'AngularJS',
+            'Karma'
+        ];
+    });

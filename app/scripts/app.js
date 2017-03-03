@@ -2,10 +2,32 @@
 
 /**
  * @ngdoc overview
- * @name checkmateLifeWebAppApp
+ * @name checkmateLifeApp
  * @description
- * # checkmateLifeWebAppApp
+ * # checkmateLifeApp
  *
  * Main module of the application.
  */
-angular.module('checkmateLifeApp', []);
+
+angular.module('checkmateLifeApp', ['ui.router'])
+    .config(function($stateProvider, $urlRouterProvider) {
+        // Home route
+        $stateProvider
+            .state('app', {
+                url: '/',
+                views: {
+                    'header': {
+                        templateUrl: 'views/header.html'
+                    },
+                    'content': {
+                        templateUrl: 'views/main.html',
+                        controller: 'MainCtrl'
+                    },
+                    'footer': {
+                        templateUrl: 'views/footer.html',
+                    }
+                }
+            });
+
+        $urlRouterProvider.otherwise('/');
+    });
