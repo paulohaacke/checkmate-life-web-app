@@ -2,22 +2,115 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-.bkg-chessboard {
-    background-image: url("/images/chessboard.png");
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    width: 800px;
-    height: 800px;
+$color-primary: #374d3c;
+$color-text-invert: white;
+$color-link-top-menu: gray;
+html {
+    font-family: Helvetica;
+    background-color: $color-primary;
 }
 
-.navbar-brand {
-    transform: translateX(-50%);
-    left: 50%;
+html,
+body,
+#content-view {
+    height: 950px;
+    width: 100%;
+}
+
+.bkg-chessboard {
+    background-image: url("/images/chessboard.jpeg");
+    background-position-y: top;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    background-color: $color-primary;
+}
+
+.navbar-static-top {
+    background: $color-primary;
+    border: 0px;
+    margin: 0px;
+}
+
+.navbar-inverse .navbar-nav>li:not(:last-child):after {
+    content: '';
+    height: 18px;
+    width: 1px;
     position: absolute;
-    font-family: Helvetica;
-    font-weight: 600;
-    vertical-align: center;
-    span {
-        font-size: 22px !important;
+    right: 0;
+    top: 32%;
+    background-color: $color-link-top-menu;
+}
+
+.navbar-header .navbar-brand {
+    color: $color-text-invert;
+    @media (min-width: $screen-xs-min) {}
+    @media (min-width: $screen-sm-min) {
+        @include translate(-50%, 0);
+        left: 50%;
+        position: absolute;
     }
+    font-weight: 600;
+    span {
+        vertical-align: -12.5%;
+        font-size: 22px;
+        margin-right: 4px;
+        @include scale(0.75,
+        1.0)
+    }
+    line-height: 22px;
+}
+
+.bkg-chessboard>.main-row {
+    margin-top: 18%;
+    height: 200px;
+    line-height: 200px;
+    @media (min-width: $screen-sm-min) {
+        background-color: rgba(white, 0.75);
+    }
+    @media (max-width: $screen-sm-min) {
+        height: 600px;
+        line-height: 200px;
+        background-color: rgba(white, 0.75);
+    }
+    >div {
+        text-align: center;
+        font-size: 8.5vw;
+        @media (min-width: $screen-sm-min) {
+            font-size: 2.75vw;
+        }
+        font-weight: 600;
+        color: $color-primary;
+        >div>div:first-child {
+            margin-top: 20px;
+            line-height: 105px;
+            height: 105px;
+            >span {
+                text-align: center;
+                line-height: 125px;
+                height: 125px;
+                font-size: 18vw;
+                @media (min-width: $screen-sm-min) {
+                    font-size: 6vw;
+                }
+                @include scale(0.75,
+                1.0)
+            }
+        }
+        >div>div:last-child {
+            text-align: center;
+            line-height: 75px;
+            height: 75px;
+        }
+        >button {
+            display: inline-block;
+        }
+    }
+}
+
+.footer {
+    background-color: $color-primary;
+    color: $color-text-invert;
+    padding: 5px;
 }
