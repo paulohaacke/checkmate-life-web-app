@@ -1,0 +1,22 @@
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    padding: 0;
+}
+
+.dialog-modal {
+    .dialog-header {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom: 1px solid black;
+        margin: 0;
+        padding-top: 0.2em;
+        padding-right: 1em;
+        padding-left: 1em;
+        background-color: white;
+        .dialog-title {
+            text-align: center;
+        }
+    }
+    .dialog-content {
+        padding: 1em;
+    }
+}

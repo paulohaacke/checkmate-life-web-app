@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 
-angular.module('checkmateLifeApp', ['ui.router'])
+angular.module('checkmateLifeApp', ['ui.router', 'ngDialog'])
     .config(function($stateProvider, $urlRouterProvider) {
         // Home route
         $stateProvider
@@ -17,7 +17,8 @@ angular.module('checkmateLifeApp', ['ui.router'])
                 url: '/',
                 views: {
                     'header': {
-                        templateUrl: 'views/header.html'
+                        templateUrl: 'views/header.html',
+                        controller: 'MainCtrl'
                     },
                     'content': {
                         templateUrl: 'views/main.html',

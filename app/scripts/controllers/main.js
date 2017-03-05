@@ -8,10 +8,14 @@
  * Controller of the checkmateLifeWebAppApp
  */
 angular.module('checkmateLifeApp')
-    .controller('MainCtrl', function() {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-    });
+    .controller('MainCtrl', ['$scope', 'ngDialog', function($scope, ngDialog) {
+
+        $scope.openRegistrationDialog = function() {
+            ngDialog.open({
+                template: 'views/register.html',
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                controller: 'RegisterCtrl'
+            });
+        }
+    }]);
