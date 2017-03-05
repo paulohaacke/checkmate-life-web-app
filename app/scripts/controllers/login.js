@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name checkmateLifeWebAppApp.controller:RegisterCtrl
+ * @name checkmateLifeWebAppApp.controller:LoginCtrl
  * @description
- * # RegisterCtrl
+ * # LoginCtrl
  * Controller of the checkmateLifeWebAppApp
  */
 
 angular.module('checkmateLifeApp')
-    .controller('RegisterCtrl', function() {
+    .controller('LoginCtrl', function() {
 
     });

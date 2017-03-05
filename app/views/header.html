@@ -11,10 +11,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li ng-class="{active: stateis('app.login')}">
-                    <a ui-sref="app.login">Sign In</a>
+                <li>
+                    <a ng-href="#" ng-click="openLoginDialog()">Sign In</a>
                 </li>
-                <li ng-class="{active: stateis('app.register')}">
+                <li>
                     <a ng-href="#" ng-click="openRegistrationDialog()">Sign Up</a>
                 </li>
             </ul>
