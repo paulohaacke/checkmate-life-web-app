@@ -2,13 +2,18 @@
 
 /**
  * @ngdoc function
- * @name checkmateLifeWebAppApp.controller:RegisterCtrl
+ * @name CheckmateLifeApp.controller:RegisterCtrl
  * @description
  * # RegisterCtrl
- * Controller of the checkmateLifeWebAppApp
+ * Controller of the CheckmateLifeApp
  */
 
-angular.module('checkmateLifeApp')
-    .controller('RegisterCtrl', function() {
+angular.module('CheckmateLifeApp')
+    .controller('RegisterCtrl', ['$scope', 'AuthenticationSrvc', 'ngDialog', function($scope, AuthenticationSrvc, ngDialog) {
 
-    });
+        $scope.registerNewUser = function() {
+            AuthenticationSrvc.createAccount($scope.registrationData);
+            ngDialog.close();
+        };
+
+    }]);

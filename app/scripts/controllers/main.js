@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name checkmateLifeWebAppApp.controller:MainCtrl
+ * @name CheckmateLifeApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the checkmateLifeWebAppApp
+ * Controller of the CheckmateLifeApp
  */
-angular.module('checkmateLifeApp')
-    .controller('MainCtrl', ['$scope', 'ngDialog', function($scope, ngDialog) {
+angular.module('CheckmateLifeApp')
+    .controller('MainCtrl', ['$scope', '$rootScope', 'ngDialog', 'SessionSrvc', 'AuthenticationSrvc', 'AUTH_EVENTS', function($scope, $rootScope, ngDialog, SessionSrvc, AuthenticationSrvc, AUTH_EVENTS) {
 
         $scope.openRegistrationDialog = function() {
             ngDialog.open({
@@ -17,10 +17,6 @@ angular.module('checkmateLifeApp')
                 className: 'ngdialog-theme-default',
                 controller: 'RegisterCtrl'
             });
-        };
-
-        $scope.registerNewUser = function() {
-            ngDialog.close();
         };
 
         $scope.openLoginDialog = function() {
@@ -32,8 +28,9 @@ angular.module('checkmateLifeApp')
             });
         };
 
-        $scope.performLogin = function() {
-            ngDialog.close();
-        };
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+            $scope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
+            $scope.username = SessionSrvc.userId;
+        });
 
     }]);

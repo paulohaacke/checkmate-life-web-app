@@ -9,15 +9,15 @@
         <form ng-submit="registerNewUser()">
             <div class="form-group">
                 <label class="sr-only" for="username">Username</label>
-                <input type="text" class="form-control input-sm" id="username" placeholder="Username" ng-model="registration.username">
+                <input type="text" class="form-control input-sm" id="username" placeholder="Username" ng-model="registrationData.username">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="username">Email Address</label>
-                <input type="email" class="form-control input-sm" id="email" placeholder="Email Address" ng-model="registration.email">
+                <input type="email" class="form-control input-sm" id="email" placeholder="Email Address" ng-model="registrationData.email">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="password">Password</label>
-                <input type="password" class="form-control input-sm" id="password" placeholder="Password" ng-model="registration.password">
+                <input type="password" class="form-control input-sm" id="password" placeholder="Password" ng-model="registrationData.password">
             </div>
             <button type="submit" class="btn btn-warning btn-block">Sign Up</button>
         </form>

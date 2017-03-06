@@ -2,12 +2,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-$color-primary: #374d3c;
-$color-text-invert: white;
-$color-link-top-menu: gray;
+@import "colors.scss";
 html {
     font-family: Helvetica;
-    background-color: $color-primary;
+    background-color: $color-secondary;
 }
 
 html,
@@ -24,13 +22,20 @@ body,
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
-    background-color: $color-primary;
+    background-color: $color-secondary;
+}
+
+.navbar-username {
+    font-size: 18px;
 }
 
 .navbar-static-top {
     background: $color-primary;
     border: 0px;
     margin: 0px;
+    .navbar-inner .container {
+        width: 100%;
+    }
 }
 
 .navbar-inverse .navbar-nav>li:not(:last-child):after {
@@ -41,6 +46,24 @@ body,
     right: 0;
     top: 32%;
     background-color: $color-link-top-menu;
+}
+
+.navbar-inverse .navbar-nav>.active {
+    >a {
+        background-color: rgba(white, 0.2);
+    }
+    >a:link {
+        background-color: rgba(white, 0.2);
+    }
+    >a:visited {
+        background-color: rgba(white, 0.2);
+    }
+    >a:hover {
+        background-color: rgba(white, 0.2);
+    }
+    >a:active {
+        background-color: rgba(white, 0.2);
+    }
 }
 
 .navbar-header .navbar-brand {
@@ -57,7 +80,7 @@ body,
         font-size: 22px;
         margin-right: 4px;
         @include scale(0.75,
-        1.0)
+        1.0);
     }
     line-height: 22px;
 }

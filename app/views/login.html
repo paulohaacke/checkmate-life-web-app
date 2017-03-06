@@ -8,11 +8,11 @@
         <form ng-submit="performLogin()">
             <div class="form-group">
                 <label class="sr-only" for="username">Username</label>
-                <input type="text" class="form-control input-sm" id="username" placeholder="Username" ng-model="login.username">
+                <input type="text" class="form-control input-sm" id="username" placeholder="Username" ng-model="loginData.username">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="password">Password</label>
-                <input type="password" class="form-control input-sm" id="password" placeholder="Password" ng-model="login.password">
+                <input type="password" class="form-control input-sm" id="password" placeholder="Password" ng-model="loginData.password">
             </div>
             <button type="submit" class="btn btn-success btn-block">Sign In</button>
         </form>
