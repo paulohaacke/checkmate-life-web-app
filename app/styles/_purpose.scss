@@ -1,0 +1,90 @@
+.purpose-container {
+    background-color: $color-secondary;
+    padding: 10px 25px 10px 25px;
+}
+
+.purpose-box {
+    padding: 0px;
+    >div {
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin: 10px 8px 7px 8px;
+        padding: 10px;
+    }
+    .purpose-box-symbol {
+        //background-color: red;
+        font-weight: 600;
+        .glyphicon {
+            font-size: 30px;
+        }
+        .fa {
+            font-size: 2.5vw;
+        }
+        >span {
+            display: block;
+        }
+    }
+    .purpose-box-content {
+        //background-color: yellow;
+    }
+}
+
+.editable-wrap {
+    width: 100%;
+    .editable-controls {
+        width: 100%;
+        &>textarea {
+            width: 90%;
+            @media (max-width: $screen-sm-min) {
+                width: 80%;
+            }
+        }
+        &>input {
+            width: 95%;
+            margin: 5px;
+        }
+    }
+    .editable-buttons {
+        button {
+            //display: block;
+            vertical-align: middle;
+            &:last-child {
+                display: none;
+            }
+            margin-bottom: 5px;
+            @media (max-width: $screen-xs-min) {
+                display: none;
+            }
+            @media (min-width: $screen-md-min) and (max-width: $screen-lg-min) {
+                display: none;
+            }
+        }
+    }
+}
+
+.row-purpose-box {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.purpose-symbol-mission {
+    color: $color-purpose-mission;
+}
+
+.purpose-symbol-vision {
+    color: $color-purpose-vision;
+}
+
+.purpose-symbol-values {
+    color: $color-purpose-values;
+}
+
+.purpose-list-values {
+    margin: 10px;
+    &>li {
+        text-align: center;
+        font-weight: 600;
+        color: $color-primary;
+    }
+}

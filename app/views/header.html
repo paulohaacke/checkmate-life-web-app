@@ -2,13 +2,19 @@
     <div class="navbar-inner">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <a class="navbar-brand" ui-sref="app"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> <span class="hidden-xs">Checkmate Life</span></a>
+                <button ng-if="!isAuthenticated" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" ui-sref="app"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> <span class="hidden-xs">Checkmate Life</span></a>
+            </div>
+            <div ng-if="isAuthenticated" id="navbar" class="navbar-left navbar-middle">
+                <button type="button" class="btn btn-primary">
+                    <span class="sr-only">Toggle side menu</span>
+                    <span class="fa fa-bars"></span>
+                </button>
             </div>
             <div id="navbar" class="navbar-collapse collapse navbar-right">
                 <ul class="nav navbar-nav">
@@ -19,7 +25,7 @@
                         <a ng-href="#" ng-click="openRegistrationDialog()">Sign Up</a>
                     </li>
                     <li class="active" ng-if="isAuthenticated">
-                        <a class="navbar-username"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{username}}</a>
+                        <a class="navbar-username"><span class="fa fa-user-circle" aria-hidden="true"></span> {{username}}</a>
                     </li>
                 </ul>
             </div>

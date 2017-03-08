@@ -1,0 +1,15 @@
+$color-primary: #374d3c;
+$color-text-invert: white;
+$color-link-top-menu: gray;
+$color-secondary: #d3ebd4;
+$color-background-username: rgba(white, 0.2);
+//Purpose colors
+$color-purpose-values: #ffb300;
+$color-purpose-mission: #006064;
+$color-purpose-vision: #880e4f;
+$color-purpose-link: lightgrey;
+$color-purpose-hover: gray;
+$color-purpose-active: $color-primary;
+//Boostrap
+$btn-primary-bg: $color-primary;
+$btn-primary-border: darken($btn-primary-bg, 2%);

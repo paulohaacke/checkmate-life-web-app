@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 
-var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog']);
+var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable']);
 
 app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
@@ -27,6 +27,10 @@ app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc) {
             };
         };
     });
+});
+
+app.run(function(editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
 app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
@@ -57,14 +61,14 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     });
 
-    $stateProvider.state('app.dashboard', {
-        url: '/',
+    $stateProvider.state('app.purpose', {
+        url: 'purpose',
         views: {
-            'content': {
+            'content@': {
                 templateUrl: 'views/purpose.html',
                 controller: 'PurposeCtrl',
                 data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
                 }
             }
         }

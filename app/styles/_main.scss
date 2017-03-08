@@ -1,18 +1,6 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-// bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-// endbower
-@import "colors.scss";
 html {
     font-family: Helvetica;
     background-color: $color-secondary;
-}
-
-html,
-body,
-#content-view {
-    height: 950px;
-    width: 100%;
 }
 
 .bkg-chessboard {
@@ -20,13 +8,19 @@ body,
     background-position-y: top;
     background-position-x: center;
     background-repeat: no-repeat;
-    height: 100%;
+    height: 950px;
     width: 100%;
     background-color: $color-secondary;
 }
 
 .navbar-username {
     font-size: 18px;
+    >span:first-child {
+        font-size: 21px;
+        line-height: 21px;
+        height: 21px;
+        vertical-align: middle;
+    }
 }
 
 .navbar-static-top {
@@ -50,30 +44,31 @@ body,
 
 .navbar-inverse .navbar-nav>.active {
     >a {
-        background-color: rgba(white, 0.2);
+        background-color: $color-background-username;
     }
     >a:link {
-        background-color: rgba(white, 0.2);
+        background-color: $color-background-username;
     }
     >a:visited {
-        background-color: rgba(white, 0.2);
+        background-color: $color-background-username;
     }
     >a:hover {
-        background-color: rgba(white, 0.2);
+        background-color: $color-background-username;
     }
     >a:active {
-        background-color: rgba(white, 0.2);
+        background-color: $color-background-username;
     }
 }
 
 .navbar-header .navbar-brand {
     color: $color-text-invert;
-    @media (min-width: $screen-xs-min) {}
-    @media (min-width: $screen-sm-min) {
-        @include translate(-50%, 0);
-        left: 50%;
-        position: absolute;
-    }
+    //@media (min-width: $screen-xs-min) {}
+    //@media (min-width: $screen-sm-min) {
+    @include translate(-50%,
+    0);
+    left: 50%;
+    position: absolute;
+    //}
     font-weight: 600;
     span {
         vertical-align: -12.5%;
@@ -83,6 +78,17 @@ body,
         1.0);
     }
     line-height: 22px;
+}
+
+.navbar-middle {
+    line-height: 32px;
+    height: 32px;
+    &>button {
+        vertical-align: -50%;
+        &>span {
+            font-size: 20px;
+        }
+    }
 }
 
 .bkg-chessboard>.main-row {
