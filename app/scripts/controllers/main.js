@@ -41,4 +41,19 @@ angular.module('CheckmateLifeApp')
             return $state.is(curstate);
         };
 
+        $scope.getCurrentMenuTitle = function() {
+            var title = "";
+            if ($scope.stateis('app.dashboard')) {
+                return "Dashboard";
+            } else if ($scope.stateis('app.purpose')) {
+                return "Purpose";
+            } else if ($scope.stateis('app.whoami')) {
+                return "Who Am I?";
+            } else if ($scope.stateis('app.goals')) {
+                return "Goals";
+            } else if ($scope.stateis('app.projects')) {
+                return "Projects";
+            }
+        };
+
     }]);
