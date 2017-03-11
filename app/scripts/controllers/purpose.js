@@ -12,10 +12,10 @@ angular.module('CheckmateLifeApp')
     .controller('PurposeCtrl', ['$scope', 'AuthenticationSrvc', 'ngDialog', '$window', function($scope, AuthenticationSrvc, ngDialog, $window) {
         $scope.values = [];
 
-        $scope.AddValue = function() {
+        $scope.addValue = function() {
             $scope.values.push({});
         }
 
-        $scope.RemoveValue = function(index) {}
+        $scope.removeValue = function(index) {}
 
     }]);

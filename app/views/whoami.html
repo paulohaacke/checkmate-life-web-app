@@ -1,0 +1,25 @@
+<div class="content-container">
+    <div class="row swot-matrix">
+        <div class="col-xs-12 col-sm-3 swot-box" ng-repeat="(ctxTitle, ctxProperties) in contexts">
+            <div class="row" ng-style="{ 'background-color' : ctxProperties['color-bg']}">
+                <div class="col-xs-1 swot-header">
+                    <div><a class="btn btn-primary" ng-click="addValue(ctxTitle)"><span class="fa fa-plus"></span></a></div>
+                    <div class="swot-context-title" ng-style="{ 'color' : ctxProperties['color']}">
+                        <div>{{ctxTitle}}</div>
+                    </div>
+                </div>
+                <div class="col-xs-11">
+                    <div class="row ">
+                        <div class="col-xs-12 swot-content ">
+                            <ul class="list-group swot-list-values ">
+                                <li ng-click="swotEditClick.$show() " editable-text="value.content " class="list-group-item editable-item " ng-repeat="value in ctxProperties.content " e-form="swotEditClick ">
+                                    {{value.content || "Edit this field. "}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

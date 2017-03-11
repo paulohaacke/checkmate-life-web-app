@@ -76,11 +76,11 @@ body {
         color: $color-text-invert;
         font-weight: 600;
         span {
-            vertical-align: -12.5%;
             font-size: 22px;
             margin-right: 4px;
             @include scale(0.75,
             1.0);
+            vertical-align: middle;
         }
         line-height: 22px;
     }
@@ -176,6 +176,7 @@ body {
         font-size: 18px;
         position: absolute;
         color: rgba(gray, 0.5);
+        margin-left: 5px;
     }
 }
 
@@ -189,4 +190,9 @@ body {
     &>a>i {
         margin-right: 10px;
     }
+}
+
+.content-container {
+    background-color: $color-secondary;
+    padding: 10px 25px 10px 25px;
 }

@@ -1,0 +1,43 @@
+.swot-content {
+    padding: 0;
+}
+
+.swot-box {
+    padding: 5px;
+    >div {
+        margin: 0px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
+
+.swot-context-title {
+    &>div {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 30px;
+        font-size: 30px;
+        font-weight: 600;
+        transform: translateX(-100%) rotate(-90deg);
+        transform-origin: right top 0;
+        width: 250px;
+    }
+}
+
+.swot-header {
+    margin: 0;
+    padding: 0;
+    &>.swot-context-title {
+        min-height: 250px;
+    }
+}
+
+.swot-list-values {
+    margin: 10px;
+    &>li {
+        text-align: center;
+        font-weight: 600;
+        color: $color-primary;
+        background-color: rgba(white, 0.5);
+    }
+}
