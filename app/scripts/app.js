@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 
-var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable']);
+var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable', 'ngMaterial']);
 
 app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
@@ -38,6 +38,13 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     $stateProvider.state('app', {
         url: '/',
         views: {
+            'sidemenu': {
+                templateUrl: 'views/sidemenu.html',
+                controller: 'MainCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
+                }
+            },
             'header': {
                 templateUrl: 'views/header.html',
                 controller: 'MainCtrl',

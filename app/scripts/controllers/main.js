@@ -8,7 +8,7 @@
  * Controller of the CheckmateLifeApp
  */
 angular.module('CheckmateLifeApp')
-    .controller('MainCtrl', ['$scope', '$rootScope', 'ngDialog', 'SessionSrvc', 'AuthenticationSrvc', 'AUTH_EVENTS', function($scope, $rootScope, ngDialog, SessionSrvc, AuthenticationSrvc, AUTH_EVENTS) {
+    .controller('MainCtrl', ['$scope', '$rootScope', '$state', 'ngDialog', 'SessionSrvc', 'AuthenticationSrvc', 'AUTH_EVENTS', '$mdSidenav', '$timeout', function($scope, $rootScope, $state, ngDialog, SessionSrvc, AuthenticationSrvc, AUTH_EVENTS, $mdSidenav, $timeout) {
 
         $scope.openRegistrationDialog = function() {
             ngDialog.open({
@@ -32,5 +32,13 @@ angular.module('CheckmateLifeApp')
             $scope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
             $scope.username = SessionSrvc.userId;
         });
+
+        $scope.openLeftMenu = function() {
+            $mdSidenav('left').toggle();
+        };
+
+        $scope.stateis = function(curstate) {
+            return $state.is(curstate);
+        };
 
     }]);

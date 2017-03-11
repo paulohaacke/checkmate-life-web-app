@@ -10,8 +10,8 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div ng-if="isAuthenticated" id="navbar" class="navbar-left navbar-middle">
-                <button type="button" class="btn btn-primary">
+            <div ng-if="!isAuthenticated" id="navbar" class="navbar-left navbar-middle">
+                <button type="button" ng-click="openLeftMenu()" class="btn btn-primary">
                     <span class="sr-only">Toggle side menu</span>
                     <span class="fa fa-bars"></span>
                 </button>

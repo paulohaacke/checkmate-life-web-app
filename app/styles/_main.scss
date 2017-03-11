@@ -1,6 +1,8 @@
-html {
+html,
+body {
     font-family: Helvetica;
     background-color: $color-secondary;
+    height: 100%;
 }
 
 .bkg-chessboard {
@@ -138,8 +140,49 @@ html {
     }
 }
 
+.page-wrap {
+    min-height: 100%;
+    margin-bottom: -30px;
+}
+
+.page-wrap:after {
+    content: "";
+    display: block;
+    margin: 0;
+}
+
+.footer,
+.page-wrap:after {
+    height: 30px;
+    margin: 0;
+}
+
 .footer {
     background-color: $color-primary;
     color: $color-text-invert;
-    padding: 5px;
+    line-height: 30px;
+    vertical-align: middle;
+}
+
+.editable-item:hover {
+    &:after {
+        display: inline;
+        content: " \f044";
+        font-family: FontAwesome;
+        font-size: 18px;
+        position: absolute;
+        color: rgba(gray, 0.5);
+    }
+}
+
+.nav-stacked>li {
+    &>a {
+        font-size: 19px;
+        .fa {
+            font-size: 21px;
+        }
+    }
+    &>a>i {
+        margin-right: 10px;
+    }
 }

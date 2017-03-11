@@ -1,0 +1,21 @@
+<md-sidenav style="margin-top:50px;" md-component-id="left" class="md-sidenav-left" disable-backdrop="" md-whiteframe="4">
+    <ul class="nav nav-pills nav-stacked" style="margin-top:5px;">
+        <li role="presentation" ng-class="{active: stateis('app.dashboard')}">
+            <a ui-sref="app.dashboard"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+        </li>
+        <li role="presentation" ng-class="{active: stateis('app.purpose')}">
+            <a ui-sref="app.purpose"><i class="fa fa-child" aria-hidden="true"></i> Purpose</a>
+        </li>
+        <li role="presentation" ng-class="{active: stateis('app.whoami')}">
+            <a ui-sref="app.whoami"><i class="fa fa-compass" aria-hidden="true"></i> Who Am I?</a>
+        </li>
+        <li role="presentation" ng-class="{active: stateis('app.goals')}">
+            <a ui-sref="app.goals"><i class="fa fa-location-arrow" aria-hidden="true"></i> Goals</a>
+        </li>
+        <li role="presentation" ng-class="{active: stateis('app.projects')}">
+            <a ui-sref="app.projects"><i class="fa fa-calendar" aria-hidden="true"></i> Projects</a>
+        </li>
+        <li class="nav-divider"></li>
+        <li role="presentation"> <a ng-href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+    </ul>
+</md-sidenav>

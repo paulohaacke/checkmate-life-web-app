@@ -6,7 +6,7 @@
                     <span class="hidden-xs hidden-sm">Mission</span>
                     <span class="fa fa-road"></span>
                 </div>
-                <div class="col-xs-10 col-lg-11 purpose-box-content">
+                <div class="col-xs-10 col-lg-11 purpose-box-content editable-item">
                     <span id="editable-text" editable-textarea="mission" e-rows="3" e-form="missionEditClick">{{mission || "Where do you want to be in 10 years?"}}</span>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <span class="hidden-xs hidden-sm">Vision</span>
                     <span class="fa fa-bullseye"></span>
                 </div>
-                <div class="col-xs-10 col-lg-11 purpose-box-content">
+                <div class="col-xs-10 col-lg-11 purpose-box-content editable-item">
                     <span id="editable-text" editable-textarea="vision" e-rows="3" e-form="visionEditClick">{{vision || "How do you want to be seen in 10 years?"}}</span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="row row-purpose-box">
                     <div class="col-xs-12">
                         <ul class="list-group purpose-list-values">
-                            <li ng-click="valueEditClick.$show()" editable-text="value.content" class="list-group-item" ng-repeat="value in values" e-form="valueEditClick">{{value.content}}</li>
+                            <li ng-click="valueEditClick.$show()" editable-text="value.content" class="list-group-item editable-item" ng-repeat="value in values" e-form="valueEditClick">{{value.content || "Edit this field with a value you have in life!"}}</li>
                         </ul>
                     </div>
                 </div>

@@ -30,8 +30,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <div ui-view="header"></div>
-    <div ui-view="content"></div>
+    <div ui-view="sidemenu" layout="column"></div>
+    <div class="page-wrap">
+        <div ui-view="header"></div>
+        <div ui-view="content"></div>
+    </div>
     <div ui-view="footer"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
