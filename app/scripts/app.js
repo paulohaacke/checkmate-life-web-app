@@ -68,6 +68,19 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     });
 
+    $stateProvider.state('app.dashboard', {
+        url: 'dashboard',
+        views: {
+            'content@': {
+                templateUrl: 'views/dashboard.html',
+                controller: 'DashboardCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
+                }
+            }
+        }
+    });
+
     $stateProvider.state('app.purpose', {
         url: 'purpose',
         views: {
@@ -81,6 +94,44 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     });
 
+    $stateProvider.state('app.whoami', {
+        url: 'whoami',
+        views: {
+            'content@': {
+                templateUrl: 'views/whoami.html',
+                controller: 'WhoamiCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
+                }
+            }
+        }
+    });
+
+    $stateProvider.state('app.goals', {
+        url: 'goals',
+        views: {
+            'content@': {
+                templateUrl: 'views/goals.html',
+                controller: 'GoalsCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
+                }
+            }
+        }
+    });
+
+    $stateProvider.state('app.projects', {
+        url: 'projects',
+        views: {
+            'content@': {
+                templateUrl: 'views/projects.html',
+                controller: 'ProjectsCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
+                }
+            }
+        }
+    });
 
     $urlRouterProvider.otherwise('/');
 });
