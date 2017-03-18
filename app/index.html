@@ -37,6 +37,7 @@
     </div>
     <div ui-view="footer"></div>
 
+    <script src="bower_components/webcola/WebCola/cola.min.js"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -51,14 +52,18 @@
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js"></script>
+    <script src="bower_components/cytoscape/dist/cytoscape.js"></script>
+    <script src="bower_components/cytoscape-cola/cytoscape-cola.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/configs.js"></script>
+    <script src="scripts/factories/lifeAreaFactory.js"></script>
     <script src="scripts/services/session.js"></script>
     <script src="scripts/services/authentication.js"></script>
+    <script src="scripts/services/strategyMap.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/register.js"></script>
     <script src="scripts/controllers/login.js"></script>
@@ -67,6 +72,7 @@
     <script src="scripts/controllers/whoami.js"></script>
     <script src="scripts/controllers/goals.js"></script>
     <script src="scripts/controllers/projects.js"></script>
+    <script src="scripts/controllers/strategyMap.js"></script>
     <!-- endbuild -->
 </body>
 

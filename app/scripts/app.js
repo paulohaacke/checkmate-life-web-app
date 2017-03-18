@@ -133,5 +133,18 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     });
 
+    $stateProvider.state('app.strategymap', {
+        url: 'strategymap',
+        views: {
+            'content@': {
+                templateUrl: 'views/strategy-map.html',
+                controller: 'StrategyMapCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
+                }
+            }
+        }
+    });
+
     $urlRouterProvider.otherwise('/');
 });
