@@ -1,0 +1,33 @@
+<div class="dialog-modal">
+    <div class="dialog-header">
+        <h3 ng-if="!isEditDialog" class="dialog-title">Add Task
+            <p><small>What are you gonna do in order to achieve your goals?</small></p>
+        </h3>
+        <h3 ng-if="isEditDialog" class="dialog-title">Edit Task
+            <p><small>What are you gonna do in order to achieve your goals?</small></p>
+        </h3>
+    </div>
+    <div class="dialog-content">
+        <form ng-submit="performAddTask()">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control input-sm" id="description" placeholder="Description" ng-model="taskData.description">
+            </div>
+            <div class="form-group">
+                <label for="goals">Goal</label>
+                <select class="form-control input-sm" id="goals" ng-options="goal.description for goal in goals track by goal.id" ng-model="taskData.goal">
+                    <option value="">None</option>
+                </select>
+            </div>
+            <button ng-if="!isEditDialog" type="submit" class="btn btn-success btn-block">Add Task</button>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button ng-if="isEditDialog" type="submit" class="btn btn-success btn-block">Save Changes</button>
+                </div>
+                <div class="col-xs-6">
+                    <button ng-if="isEditDialog" ng-click="performEraseTask()" type="button" class="btn btn-danger btn-block">Erase Task</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

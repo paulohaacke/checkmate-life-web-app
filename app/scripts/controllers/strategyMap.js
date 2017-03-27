@@ -9,6 +9,6 @@
  */
 
 angular.module('CheckmateLifeApp')
-    .controller('StrategyMapCtrl', ['$scope', 'StrategyMapSrvc', 'LifeAreaFactory', function($scope, StrategyMapSrvc, LifeAreaFactory) {
-        $(function() { StrategyMapSrvc.create(LifeAreaFactory); });
+    .controller('StrategyMapCtrl', ['$scope', 'StrategyMapSrvc', 'LifeAreaFactory', 'GoalsFactory', function($scope, StrategyMapSrvc, LifeAreaFactory, GoalsFactory) {
+        $(function() { StrategyMapSrvc.create(LifeAreaFactory, GoalsFactory); });
     }])

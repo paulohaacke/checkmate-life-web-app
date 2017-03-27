@@ -33,6 +33,10 @@ app.run(function(editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
+app.run(function($rootScope, TASK_STATES) {
+    $rootScope.TASK_STATES = TASK_STATES;
+});
+
 app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     // Home route
     $stateProvider.state('app', {
@@ -120,12 +124,12 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     });
 
-    $stateProvider.state('app.projects', {
-        url: 'projects',
+    $stateProvider.state('app.tasks', {
+        url: 'tasks',
         views: {
             'content@': {
-                templateUrl: 'views/projects.html',
-                controller: 'ProjectsCtrl',
+                templateUrl: 'views/tasks.html',
+                controller: 'TasksCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
                 }

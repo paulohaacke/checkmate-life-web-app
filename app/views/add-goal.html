@@ -1,20 +1,42 @@
 <div class="dialog-modal">
     <div class="dialog-header">
-        <h3 class="dialog-title">Add Goal
+        <h3 ng-if="!isEditDialog" class="dialog-title">Add Goal
+            <p><small>What needs to be accomplished in order to achieve your vision?</small></p>
+        </h3>
+        <h3 ng-if="isEditDialog" class="dialog-title">Edit Goal
             <p><small>What needs to be accomplished in order to achieve your vision?</small></p>
         </h3>
     </div>
     <div class="dialog-content">
-        <form ng-submit="app.addgoal({id: lifeAreaId})">
+        <form ng-submit="performAddGoal()">
             <div class="form-group">
-                <label class="sr-only" for="username">Username</label>
-                <input type="text" class="form-control input-sm" id="username" placeholder="Username" ng-model="loginData.username">
+                <label for="description">Description</label>
+                <input type="text" class="form-control input-sm" id="description" placeholder="Description" ng-model="goalData.description">
             </div>
             <div class="form-group">
-                <label class="sr-only" for="password">Password</label>
-                <input type="password" class="form-control input-sm" id="password" placeholder="Password" ng-model="loginData.password">
+                <label for="metrics">Metric</label>
+                <select class="form-control input-sm" id="metrics" ng-options="metric for metric in metricTypes track by metric" ng-model="goalData.metrics">
+                    <option value="">None</option>
+                </select>
             </div>
-            <button type="submit" class="btn btn-success btn-block">Sign In</button>
+            <div class="form-group">
+                <label for="dependencies">Dependencies</label>
+                <div id="dependencies" class="input-group input-sm" ng-repeat="goal in goals">
+                    <span class="input-group-addon">
+                        <input type="checkbox" ng-model="goalData.dependencies[goal.id]">
+                    </span>
+                    <span class="form-control" aria-label="{{goal.description}}">{{goal.description}}</span>
+                </div>
+            </div>
+            <button ng-if="!isEditDialog" type="submit" class="btn btn-success btn-block">Add Goal</button>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button ng-if="isEditDialog" type="submit" class="btn btn-success btn-block">Save Changes</button>
+                </div>
+                <div class="col-xs-6">
+                    <button ng-if="isEditDialog" ng-click="performEraseGoal()" type="button" class="btn btn-danger btn-block">Erase Goal</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

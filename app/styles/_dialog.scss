@@ -1,12 +1,8 @@
 .ngdialog.ngdialog-theme-default .ngdialog-content {
     padding: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .dialog-modal {
-    width: 100%;
-    height: 100%;
     .dialog-header {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -21,8 +17,6 @@
         }
     }
     .dialog-content {
-        width: 100%;
-        height: 100%;
         padding: 1em;
     }
 }

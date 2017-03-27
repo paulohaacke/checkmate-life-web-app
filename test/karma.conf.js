@@ -34,6 +34,8 @@ module.exports = function(config) {
       'bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js',
       'bower_components/cytoscape/dist/cytoscape.js',
       'bower_components/cytoscape-cola/cytoscape-cola.js',
+      'bower_components/moment/moment.js',
+      'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

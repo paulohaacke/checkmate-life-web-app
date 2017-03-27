@@ -35,14 +35,17 @@ app.service('StrategyMapSrvc', ['$filter', function($filter) {
         });
     }
 
-    this.addGoal = function(id, label, dependencies, lifeAreaId, lifeAreas) {
-        nodes.push({ data: { id: id, label: label, parent: lifeAreaId }, selectable: false });
+    this.addGoal = function(id, label, dependencies, lifeAreaId, lifeAreas, goals) {
+        nodes.push({ data: { id: lifeAreaId + '.' + id, label: label, parent: lifeAreaId }, selectable: false });
         angular.forEach(dependencies, function(dependencyId) {
-            var edgeId = lifeAreaId + '.' + id + '->' + dependencyId;
-            edges.push({ id: edgeId, data: { source: dependencyId, target: id } });
-            var depLifeArea = lifeAreas.find(function(el) { return dependencyId.split('.')[0] == el.id; });
+            var depLifeAreaId = goals.find(function(el) { return dependencyId == el.id }).lifeAreaId;
+            var sourceId = depLifeAreaId + '.' + dependencyId;
+            var targetId = lifeAreaId + '.' + id;
+            var edgeId = sourceId + '->' + targetId;
+            edges.push({ id: edgeId, data: { source: sourceId, target: targetId } });
+            var depLifeArea = lifeAreas.find(function(el) { return depLifeAreaId == el.id; });
             styles.push({
-                selector: 'edge[source="' + dependencyId + '"]',
+                selector: 'edge[source="' + sourceId + '"]',
                 css: {
                     'line-color': depLifeArea['color-bg'],
                     'target-arrow-color': depLifeArea['color-bg']
@@ -62,7 +65,7 @@ app.service('StrategyMapSrvc', ['$filter', function($filter) {
         return sum;
     }
 
-    this.create = function(lifeAreas) {
+    this.create = function(lifeAreas, goals) {
 
         nodes = [];
         edges = [];
@@ -135,10 +138,12 @@ app.service('StrategyMapSrvc', ['$filter', function($filter) {
 
         angular.forEach(lifeAreas, function(area) {
             this.addLifeArea(area.id, area.label, area.color, area['color-bg']);
-            angular.forEach(area.goals, function(goal) {
-                this.addGoal(area.id + "." + goal.id, goal.content, goal.dependencies, area.id, lifeAreas);
+            angular.forEach($filter('filter')(goals, { lifeAreaId: area.id }), function(goal) {
+                this.addGoal(goal.id, goal.description, goal.dependencies, goal.lifeAreaId, lifeAreas, goals);
             }, this);
         }, this);
+
+
 
         var contHeight = document.getElementById('cy').offsetHeight;
         var contWidth = document.getElementById('cy').offsetWidth;
