@@ -2,13 +2,14 @@
     <div class="navbar-inner">
         <div class="container">
             <div class="navbar-header">
-                <div ng-if="!isAuthenticated" id="navbar" class="navbar-left navbar-middle">
+                <div ng-if="isAuthenticated" id="navbar" class="navbar-left navbar-middle">
                     <button type="button" ng-click="openLeftMenu()" class="btn btn-primary">
                         <span class="sr-only">Toggle side menu</span>
                         <span class="fa fa-bars"></span>
                     </button>
                 </div>
-                <a class="navbar-brand" ng-class="{'center-brand': stateis('app')}" ui-sref="app"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> <span class="hidden-xs">Checkmate Life</span></a>
+                <a ng-if="!isAuthenticated" class="navbar-brand" ng-class="{'center-brand': stateis('app')}" ui-sref="app"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> <span class="hidden-xs">Checkmate Life</span></a>
+                <a ng-if="isAuthenticated" class="navbar-brand" ng-class="{'center-brand': stateis('app')}" ui-sref="app.dashboard"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> <span class="hidden-xs">Checkmate Life</span></a>
                 <span class="navbar-brand center-brand" ng-if="!stateis('app')"><span>{{getCurrentMenuTitle()}}</span></span>
                 <button ng-if="!isAuthenticated" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -25,8 +26,11 @@
                     <li ng-if="!isAuthenticated">
                         <a ng-href="#" ng-click="openRegistrationDialog()">Sign Up</a>
                     </li>
-                    <li class="active" ng-if="isAuthenticated">
+                    <li ng-if="isAuthenticated" class="active">
                         <a class="navbar-username"><span class="fa fa-user-circle" aria-hidden="true"></span> {{username}}</a>
+                    </li>
+                    <li ng-if="isAuthenticated">
+                        <a ng-href="#" ng-click="performLogout()">Logout</a>
                     </li>
                 </ul>
             </div>

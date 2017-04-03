@@ -26,18 +26,23 @@ app.constant('USER_ROLES', {
     guest: 'guest'
 })
 
-app.service('AuthenticationSrvc', ['baseURL', 'USER_ROLES', 'SessionSrvc', '$q', '$timeout', function(baseURL, USER_ROLES, SessionSrvc, $q, $timeout) {
+app.service('AuthenticationSrvc', ['baseURL', 'USER_ROLES', 'SessionSrvc', '$q', '$timeout', '$resource', '$rootScope', 'AUTH_EVENTS', function(baseURL, USER_ROLES, SessionSrvc, $q, $timeout, $resource, $rootScope, AUTH_EVENTS) {
 
     this.createAccount = function(account) {
-        SessionSrvc.create(1, account.username, USER_ROLES.admin);
+        return $resource(baseURL + "users/register").save(account).$promise;
     };
 
     this.authenticate = function(credentials) {
         var defer = $q.defer();
-        $timeout(function() {
-            SessionSrvc.create(1, credentials.username, USER_ROLES.admin);
-            defer.resolve(credentials.username);
-        });
+        $resource(baseURL + "users/login").save(credentials)
+            .$promise.then(function(response) {
+                if (response.success) {
+                    SessionSrvc.create(response.token, credentials.username, USER_ROLES.normal);
+                }
+                defer.resolve(response);
+            }, function(error) {
+                defer.reject(error);
+            });
         return defer.promise;
     };
 
@@ -50,6 +55,11 @@ app.service('AuthenticationSrvc', ['baseURL', 'USER_ROLES', 'SessionSrvc', '$q',
             authorizedRoles = [authorizedRoles];
         };
         return (this.isAuthenticated() && authorizedRoles.indexOf(SessionSrvc.userRole) !== -1);
+    }
+
+    this.logout = function() {
+        SessionSrvc.destroy();
+        $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
     }
 
 }]);

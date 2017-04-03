@@ -9,11 +9,27 @@
  */
 
 angular.module('CheckmateLifeApp')
-    .controller('RegisterCtrl', ['$scope', 'AuthenticationSrvc', 'ngDialog', function($scope, AuthenticationSrvc, ngDialog) {
+    .controller('RegisterCtrl', ['$scope', '$rootScope', 'AuthenticationSrvc', 'ngDialog', 'AUTH_EVENTS', '$state', function($scope, $rootScope, AuthenticationSrvc, ngDialog, AUTH_EVENTS, $state) {
 
         $scope.registerNewUser = function() {
-            AuthenticationSrvc.createAccount($scope.registrationData);
-            ngDialog.close();
+            AuthenticationSrvc.createAccount($scope.registrationData)
+                .then(function(response) {
+                    AuthenticationSrvc.authenticate($scope.registrationData)
+                        .then(function(response) {
+                            if (response.success) {
+                                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                                //$scope.setCurrentUser(username);
+                                ngDialog.close();
+                                $state.go('app.purpose');
+                            } else {
+                                ngDialog.close();
+                            }
+                        }, function(error) {
+                            ngDialog.close();
+                        });
+                }, function(error) {
+                    ngDialog.close();
+                });
         };
 
     }]);

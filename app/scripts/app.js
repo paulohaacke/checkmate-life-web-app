@@ -9,12 +9,14 @@
  * Main module of the application.
  */
 
-var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable', 'ngMaterial']);
+var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable', 'ngMaterial', 'ngResource']);
 
-app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc) {
+app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdComponentRegistry) {
+
     $rootScope.$on('$stateChangeStart', function(event, next) {
         if (next.data) {
             var authorizedRoles = next.data.authorizedRoles;
+            console.log("Changing authorization, authroles: " + authorizedRoles)
             if (!AuthenticationSrvc.isAuthorized(authorizedRoles)) {
                 event.preventDefault();
                 if (AuthenticationSrvc.isAuthenticated()) {
@@ -26,7 +28,11 @@ app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc) {
                 }
             };
         };
+        if ($mdComponentRegistry.get('left')) {
+            $mdSidenav('left').close();
+        };
     });
+
 });
 
 app.run(function(editableOptions) {
