@@ -38,12 +38,12 @@ app.service('StrategyMapSrvc', ['$filter', function($filter) {
     this.addGoal = function(id, label, dependencies, lifeAreaId, lifeAreas, goals) {
         nodes.push({ data: { id: lifeAreaId + '.' + id, label: label, parent: lifeAreaId }, selectable: false });
         angular.forEach(dependencies, function(dependencyId) {
-            var depLifeAreaId = goals.find(function(el) { return dependencyId == el.id }).lifeAreaId;
+            var depLifeAreaId = goals.find(function(el) { return dependencyId == el._id }).lifeArea;
             var sourceId = depLifeAreaId + '.' + dependencyId;
             var targetId = lifeAreaId + '.' + id;
             var edgeId = sourceId + '->' + targetId;
             edges.push({ id: edgeId, data: { source: sourceId, target: targetId } });
-            var depLifeArea = lifeAreas.find(function(el) { return depLifeAreaId == el.id; });
+            var depLifeArea = lifeAreas.find(function(el) { return depLifeAreaId == el._id; });
             styles.push({
                 selector: 'edge[source="' + sourceId + '"]',
                 css: {
@@ -137,9 +137,9 @@ app.service('StrategyMapSrvc', ['$filter', function($filter) {
         ]
 
         angular.forEach(lifeAreas, function(area) {
-            this.addLifeArea(area.id, area.label, area.color, area['color-bg']);
-            angular.forEach($filter('filter')(goals, { lifeAreaId: area.id }), function(goal) {
-                this.addGoal(goal.id, goal.description, goal.dependencies, goal.lifeAreaId, lifeAreas, goals);
+            this.addLifeArea(area._id, area.label, area.color, area['color-bg']);
+            angular.forEach($filter('filter')(goals, { lifeArea: area._id }), function(goal) {
+                this.addGoal(goal._id, goal.description, goal.dependencies, goal.lifeArea, lifeAreas, goals);
             }, this);
         }, this);
 

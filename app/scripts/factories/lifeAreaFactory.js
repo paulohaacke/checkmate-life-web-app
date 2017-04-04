@@ -9,16 +9,16 @@
  */
 
 angular.module('CheckmateLifeApp')
-    .factory('LifeAreaFactory', [function() {
+    .factory('LifeAreaFactory', ['$resource', 'baseURL', function($resource, baseURL) {
 
 
-        /*return $resource(baseURL + "feedback/:id", null, {
+        return $resource(baseURL + "lifeareas/:id", null, {
             'update': {
                 method: 'PUT'
             }
-        });*/
+        });
 
-        return [{
+        /*return [{
                 id: 1,
                 label: "Family and Relationship",
                 goals: [],
@@ -46,6 +46,6 @@ angular.module('CheckmateLifeApp')
                 color: "#4a148c",
                 "color-bg": "#b39ddb"
             }
-        ];
+        ];*/
 
     }])

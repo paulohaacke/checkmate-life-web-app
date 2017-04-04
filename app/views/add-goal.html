@@ -23,7 +23,7 @@
                 <label for="dependencies">Dependencies</label>
                 <div id="dependencies" class="input-group input-sm" ng-repeat="goal in goals">
                     <span class="input-group-addon">
-                        <input type="checkbox" ng-model="goalData.dependencies[goal.id]">
+                        <input type="checkbox" ng-model="goalData.dependencies[goal._id]">
                     </span>
                     <span class="form-control" aria-label="{{goal.description}}">{{goal.description}}</span>
                 </div>

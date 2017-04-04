@@ -9,16 +9,16 @@
  */
 
 angular.module('CheckmateLifeApp')
-    .factory('GoalsFactory', [function() {
+    .factory('GoalsFactory', ['$resource', 'baseURL', function($resource, baseURL) {
 
 
-        /*return $resource(baseURL + "feedback/:id", null, {
+        return $resource(baseURL + "goals/:id", null, {
             'update': {
                 method: 'PUT'
             }
-        });*/
+        });
 
-        return [{
+        /*return [{
             id: 1,
             lifeAreaId: 2,
             description: "Make things better",
@@ -36,6 +36,6 @@ angular.module('CheckmateLifeApp')
             description: "Change the ways life goes",
             metrics: [],
             dependencies: []
-        }];
+        }];*/
 
-    }])
+    }]);

@@ -13,20 +13,27 @@ var app = angular.module('CheckmateLifeApp');
 app.controller('AddGoalCtrl', ['$scope', 'LifeAreaFactory', 'GoalsFactory', 'ngDialog', '$filter', function($scope, LifeAreaFactory, GoalsFactory, ngDialog, $filter) {
 
     $scope.metricTypes = ["Number of completed tasks."];
-    $scope.lifeAreas = LifeAreaFactory;
-    $scope.goals = GoalsFactory;
+    $scope.lifeAreas = LifeAreaFactory.query();
+    $scope.goals = GoalsFactory.query();
     $scope.isEditDialog = $scope.ngDialogData.goalId !== undefined;
     $scope.editGoal = {};
     $scope.goalData = {};
 
     if ($scope.isEditDialog) {
-        $scope.editGoal = $scope.goals.find(function(el) { return $scope.ngDialogData.goalId == el.id; });
-        $scope.goalData.description = $scope.editGoal.description;
-        $scope.goalData.metrics = $scope.editGoal.metrics;
-        $scope.goalData.dependencies = $scope.editGoal.dependencies.reduce(function(deps, curDep) {
-            deps[curDep] = true;
-            return deps;
-        }, {});
+        $scope.editGoal = GoalsFactory.get({ id: $scope.ngDialogData.goalId })
+            .$promise.then(function(response) {
+                $scope.goalData.description = response.description;
+                $scope.goalData.metrics = response.metrics;
+                $scope.goalData.dependencies = response.dependencies.reduce(function(deps, curDep) {
+                    deps[curDep] = true;
+                    return deps;
+                }, {});
+                $scope.editGoal = response;
+            });
+        /*$scope.goals.find(function(el) {
+            return $scope.ngDialogData.goalId == el._id;
+});*/
+
     }
 
     $scope.performAddGoal = function() {
@@ -37,6 +44,7 @@ app.controller('AddGoalCtrl', ['$scope', 'LifeAreaFactory', 'GoalsFactory', 'ngD
             $scope.editGoal.description = $scope.goalData.description;
             $scope.editGoal.metrics = $scope.goalData.metrics;
             $scope.editGoal.dependencies = dependencies;
+            GoalsFactory.update({ id: $scope.editGoal._id }, $scope.editGoal);
         } else {
             var goalId = $scope.goals[$scope.goals.length - 1].id + 1;
             $scope.lifeAreas.find(function(el) { return $scope.ngDialogData.lifeAreaId == el.id; }).goals.push(goalId);

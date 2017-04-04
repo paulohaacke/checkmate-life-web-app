@@ -10,5 +10,5 @@
 
 angular.module('CheckmateLifeApp')
     .controller('StrategyMapCtrl', ['$scope', 'StrategyMapSrvc', 'LifeAreaFactory', 'GoalsFactory', function($scope, StrategyMapSrvc, LifeAreaFactory, GoalsFactory) {
-        $(function() { StrategyMapSrvc.create(LifeAreaFactory, GoalsFactory); });
+        $(function() { StrategyMapSrvc.create(LifeAreaFactory.query(), GoalsFactory.query()); });
     }])

@@ -11,8 +11,8 @@
 angular.module('CheckmateLifeApp')
     .controller('GoalsCtrl', ['$scope', '$window', 'ngDialog', 'LifeAreaFactory', 'GoalsFactory', function($scope, $window, ngDialog, LifeAreaFactory, GoalsFactory) {
 
-        $scope.lifeAreas = LifeAreaFactory;
-        $scope.goals = GoalsFactory;
+        $scope.lifeAreas = LifeAreaFactory.query();
+        $scope.goals = GoalsFactory.query();
 
         $scope.addLifeArea = function(name, color, colorBg) {
             $scope.lifeAreas[name] = {
