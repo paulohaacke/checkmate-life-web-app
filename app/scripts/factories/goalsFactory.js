@@ -18,24 +18,4 @@ angular.module('CheckmateLifeApp')
             }
         });
 
-        /*return [{
-            id: 1,
-            lifeAreaId: 2,
-            description: "Make things better",
-            metrics: [],
-            dependencies: [2, 3]
-        }, {
-            id: 2,
-            lifeAreaId: 3,
-            description: "Get a raise in my job",
-            metrics: [],
-            dependencies: []
-        }, {
-            id: 3,
-            lifeAreaId: 3,
-            description: "Change the ways life goes",
-            metrics: [],
-            dependencies: []
-        }];*/
-
     }]);
