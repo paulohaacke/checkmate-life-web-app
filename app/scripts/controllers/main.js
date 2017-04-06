@@ -32,16 +32,6 @@ angular.module('CheckmateLifeApp')
             AuthenticationSrvc.logout();
         }
 
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
-            $scope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
-            $scope.username = SessionSrvc.userId;
-        });
-
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-            $scope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
-            $scope.username = SessionSrvc.userId;
-        });
-
         $scope.openLeftMenu = function() {
             $mdSidenav('left').toggle();
         };

@@ -11,9 +11,20 @@
 
 var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable', 'ngMaterial', 'ngResource']);
 
-app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdComponentRegistry) {
+app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdComponentRegistry, SessionSrvc) {
+
+    $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
+        $rootScope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
+        $rootScope.username = SessionSrvc.userId;
+    });
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+        $rootScope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
+        $rootScope.username = SessionSrvc.userId;
+    });
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
+        AuthenticationSrvc.loadUserSession();
         if (next.data) {
             var authorizedRoles = next.data.authorizedRoles;
             console.log("Changing authorization, authroles: " + authorizedRoles)
@@ -50,31 +61,22 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'sidemenu': {
                 templateUrl: 'views/sidemenu.html',
-                controller: 'MainCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
-                }
+                controller: 'MainCtrl'
             },
             'header': {
                 templateUrl: 'views/header.html',
-                controller: 'MainCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
-                }
+                controller: 'MainCtrl'
             },
             'content': {
                 templateUrl: 'views/main.html',
-                controller: 'MainCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
-                }
+                controller: 'MainCtrl'
             },
             'footer': {
-                templateUrl: 'views/footer.html',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
-                }
+                templateUrl: 'views/footer.html'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal, USER_ROLES.guest]
         }
     });
 
@@ -83,11 +85,12 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/dashboard.html',
-                controller: 'DashboardCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
-                }
+                controller: 'DashboardCtrl'
+
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
         }
     });
 
@@ -96,11 +99,11 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/purpose.html',
-                controller: 'PurposeCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
-                }
+                controller: 'PurposeCtrl'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
         }
     });
 
@@ -109,11 +112,11 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/whoami.html',
-                controller: 'WhoamiCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
-                }
+                controller: 'WhoamiCtrl'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
         }
     });
 
@@ -122,11 +125,11 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/goals.html',
-                controller: 'GoalsCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
-                }
+                controller: 'GoalsCtrl'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
         }
     });
 
@@ -135,11 +138,11 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/tasks.html',
-                controller: 'TasksCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
-                }
+                controller: 'TasksCtrl'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
         }
     });
 
@@ -148,11 +151,11 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/strategy-map.html',
-                controller: 'StrategyMapCtrl',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
-                }
+                controller: 'StrategyMapCtrl'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
         }
     });
 

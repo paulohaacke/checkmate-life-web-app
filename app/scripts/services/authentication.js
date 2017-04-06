@@ -26,7 +26,17 @@ app.constant('USER_ROLES', {
     guest: 'guest'
 })
 
-app.service('AuthenticationSrvc', ['baseURL', 'USER_ROLES', 'SessionSrvc', '$q', '$timeout', '$resource', '$rootScope', 'AUTH_EVENTS', function(baseURL, USER_ROLES, SessionSrvc, $q, $timeout, $resource, $rootScope, AUTH_EVENTS) {
+app.service('AuthenticationSrvc', ['$localStorage', 'baseURL', 'USER_ROLES', 'SessionSrvc', '$q', '$timeout', '$resource', '$rootScope', 'AUTH_EVENTS', function($localStorage, baseURL, USER_ROLES, SessionSrvc, $q, $timeout, $resource, $rootScope, AUTH_EVENTS) {
+
+    var TOKEN_KEY = 'Token';
+
+    this.loadUserSession = function() {
+        var session = $localStorage.getObject(TOKEN_KEY, '{}');
+        if (session.id != undefined) {
+            SessionSrvc.create(session);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+        }
+    }
 
     this.createAccount = function(account) {
         return $resource(baseURL + "users/register").save(account).$promise;
@@ -37,7 +47,12 @@ app.service('AuthenticationSrvc', ['baseURL', 'USER_ROLES', 'SessionSrvc', '$q',
         $resource(baseURL + "users/login").save(credentials)
             .$promise.then(function(response) {
                 if (response.success) {
-                    SessionSrvc.create(response.token, credentials.username, USER_ROLES.normal);
+                    SessionSrvc.create({
+                        id: response.token,
+                        userId: credentials.username,
+                        userRole: USER_ROLES.normal
+                    });
+                    $localStorage.storeObject(TOKEN_KEY, SessionSrvc);
                 }
                 defer.resolve(response);
             }, function(error) {
@@ -54,12 +69,16 @@ app.service('AuthenticationSrvc', ['baseURL', 'USER_ROLES', 'SessionSrvc', '$q',
         if (!angular.isArray(authorizedRoles)) {
             authorizedRoles = [authorizedRoles];
         };
-        return (this.isAuthenticated() && authorizedRoles.indexOf(SessionSrvc.userRole) !== -1);
+        return ((this.isAuthenticated() && authorizedRoles.indexOf(SessionSrvc.userRole) !== -1) ||
+            (authorizedRoles.indexOf(USER_ROLES.guest) !== -1));
     }
 
     this.logout = function() {
         SessionSrvc.destroy();
+        $localStorage.remove(TOKEN_KEY);
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
     }
+
+    this.loadUserSession();
 
 }]);

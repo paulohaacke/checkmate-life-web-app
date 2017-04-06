@@ -10,7 +10,7 @@
 
 var app = angular.module('CheckmateLifeApp');
 
-app.controller('AddGoalCtrl', ['$scope', 'LifeAreaFactory', 'GoalsFactory', 'ngDialog', '$filter', function($scope, LifeAreaFactory, GoalsFactory, ngDialog, $filter) {
+app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFactory', 'ngDialog', '$filter', function($scope, $state, LifeAreaFactory, GoalsFactory, ngDialog, $filter) {
 
     $scope.metricTypes = ["Number of completed tasks."];
     $scope.lifeAreas = LifeAreaFactory.query();
@@ -23,44 +23,34 @@ app.controller('AddGoalCtrl', ['$scope', 'LifeAreaFactory', 'GoalsFactory', 'ngD
         $scope.editGoal = GoalsFactory.get({ id: $scope.ngDialogData.goalId })
             .$promise.then(function(response) {
                 $scope.goalData.description = response.description;
-                $scope.goalData.metrics = response.metrics;
+                $scope.goalData.metrics = response.metrics.length > 0 ? response.metrics[0].description : "";
                 $scope.goalData.dependencies = response.dependencies.reduce(function(deps, curDep) {
                     deps[curDep] = true;
                     return deps;
                 }, {});
                 $scope.editGoal = response;
             });
-        /*$scope.goals.find(function(el) {
-            return $scope.ngDialogData.goalId == el._id;
-});*/
-
     }
 
     $scope.performAddGoal = function() {
-        var dependencies = Object.keys($scope.goalData.dependencies).filter(function(key) {
+        var sendData = $scope.goalData;
+        sendData.metrics = sendData.metrics !== undefined ? [{ description: sendData.metrics }] : [];
+        sendData.dependencies = Object.keys($scope.goalData.dependencies).filter(function(key) {
             return ($scope.goalData.dependencies[key] === true);
         }, {});
         if ($scope.isEditDialog) {
-            $scope.editGoal.description = $scope.goalData.description;
-            $scope.editGoal.metrics = $scope.goalData.metrics;
-            $scope.editGoal.dependencies = dependencies;
-            GoalsFactory.update({ id: $scope.editGoal._id }, $scope.editGoal);
+            GoalsFactory.update({ id: $scope.editGoal._id }, sendData);
         } else {
-            var goalId = $scope.goals[$scope.goals.length - 1].id + 1;
-            $scope.lifeAreas.find(function(el) { return $scope.ngDialogData.lifeAreaId == el.id; }).goals.push(goalId);
-            $scope.goals.push({
-                lifeAreaId: $scope.ngDialogData.lifeAreaId,
-                id: goalId,
-                description: $scope.goalData.description,
-                metrics: $scope.goalData.metrics,
-                dependencies: dependencies
-            });
+            sendData.lifeArea = $scope.ngDialogData.lifeAreaId;
+            GoalsFactory.save(sendData);
         }
+        $state.go($state.current, {}, { reload: true });
         ngDialog.close();
     }
 
     $scope.performEraseGoal = function() {
-        $scope.goals.splice($scope.goals.indexOf($scope.editGoal), 1);
+        GoalsFactory.delete({ id: $scope.editGoal._id });
+        $state.go($state.current, {}, { reload: true });
         ngDialog.close();
     }
 
