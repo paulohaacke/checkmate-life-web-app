@@ -1,7 +1,7 @@
 <div class="container bkg-chessboard">
     <div class="row main-row">
         <div class="col-xs-12 col-sm-2 col-sm-offset-1">
-            <button class="btn btn-success btn-block" ng-click="openLoginDialog()">Login</button>
+            <button ng-if="!isAuthenticated" class="btn btn-success btn-block" ng-click="openLoginDialog()">Login</button>
         </div>
         <div class="col-xs-12 col-sm-6">
             <div class="row main-row">
@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-2">
-            <button class="btn btn-warning btn-block" ng-click="openRegistrationDialog()">Register</button>
+            <button ng-if="!isAuthenticated" class="btn btn-warning btn-block" ng-click="openRegistrationDialog()">Register</button>
         </div>
     </div>
 </div>

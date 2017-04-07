@@ -9,11 +9,20 @@
  */
 
 angular.module('CheckmateLifeApp')
-    .controller('PurposeCtrl', ['$scope', 'AuthenticationSrvc', 'ngDialog', '$window', function($scope, AuthenticationSrvc, ngDialog, $window) {
-        $scope.values = [];
+    .controller('PurposeCtrl', ['$scope', 'AuthenticationSrvc', 'ngDialog', '$window', 'PurposeFactory', 'ValuesFactory', function($scope, AuthenticationSrvc, ngDialog, $window, PurposeFactory, ValuesFactory) {
+        $scope.purpose = PurposeFactory.query(function(purposes) {
+            $scope.purpose = purposes[0];
+        });
 
-        $scope.addValue = function() {
-            $scope.values.push({});
+        $scope.addValue = function(purpose) {
+            $scope.purpose.save({});
+            ValuesFactory.save({ purposeId: purpose._id }, {},
+                function(response) {
+                    purpose.values.push(response);
+                },
+                function(error) {
+
+                });
         }
 
         $scope.removeValue = function(index) {}

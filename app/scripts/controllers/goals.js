@@ -26,17 +26,17 @@ angular.module('CheckmateLifeApp')
             ngDialog.open({
                 template: 'views/add-goal.html',
                 scope: $scope,
-                data: { lifeAreaId: lifeAreaId },
+                data: { goals: $scope.goals, lifeAreaId: lifeAreaId },
                 className: 'ngdialog-theme-default',
                 controller: 'AddGoalCtrl'
             });
         }
 
-        $scope.openEditGoalDialog = function(lifeAreaId, goalId) {
+        $scope.openEditGoalDialog = function(lifeAreaId, goal) {
             ngDialog.open({
                 template: 'views/add-goal.html',
                 scope: $scope,
-                data: { lifeAreaId: lifeAreaId, goalId: goalId },
+                data: { goals: $scope.goals, lifeAreaId: lifeAreaId, goal: goal },
                 className: 'ngdialog-theme-default',
                 controller: 'AddGoalCtrl'
             });

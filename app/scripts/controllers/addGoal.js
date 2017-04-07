@@ -15,12 +15,12 @@ app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFact
     $scope.metricTypes = ["Number of completed tasks."];
     $scope.lifeAreas = LifeAreaFactory.query();
     $scope.goals = GoalsFactory.query();
-    $scope.isEditDialog = $scope.ngDialogData.goalId !== undefined;
+    $scope.isEditDialog = $scope.ngDialogData.goal !== undefined;
     $scope.editGoal = {};
     $scope.goalData = {};
 
     if ($scope.isEditDialog) {
-        $scope.editGoal = GoalsFactory.get({ id: $scope.ngDialogData.goalId })
+        GoalsFactory.get({ id: $scope.ngDialogData.goal._id })
             .$promise.then(function(response) {
                 $scope.goalData.description = response.description;
                 $scope.goalData.metrics = response.metrics.length > 0 ? response.metrics[0].description : "";
@@ -39,18 +39,27 @@ app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFact
             return ($scope.goalData.dependencies[key] === true);
         }, {});
         if ($scope.isEditDialog) {
-            GoalsFactory.update({ id: $scope.editGoal._id }, sendData);
+            GoalsFactory.update({ id: $scope.editGoal._id }, sendData,
+                function(response) {
+                    $scope.ngDialogData.goal.description = response.description;
+                    ngDialog.close();
+                });
         } else {
             sendData.lifeArea = $scope.ngDialogData.lifeAreaId;
-            GoalsFactory.save(sendData);
+            GoalsFactory.save(sendData,
+                function(response) {
+                    $scope.ngDialogData.goals.push(response);
+                    ngDialog.close();
+                });
         }
-        $state.go($state.current, {}, { reload: true });
-        ngDialog.close();
+
     }
 
     $scope.performEraseGoal = function() {
-        GoalsFactory.delete({ id: $scope.editGoal._id });
-        $state.go($state.current, {}, { reload: true });
+        GoalsFactory.delete({ id: $scope.editGoal._id },
+            function(response) {
+                $scope.ngDialogData.goals.splice($scope.ngDialogData.goals.indexOf($scope.ngDialogData.goal), 1);
+            });
         ngDialog.close();
     }
 

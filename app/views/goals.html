@@ -12,7 +12,7 @@
                     <div class="row ">
                         <div class="col-xs-12 swot-content ">
                             <ul class="list-group swot-list-values ">
-                                <li ng-click="openEditGoalDialog(area._id, goal._id)" class="list-group-item editable-item " ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict">
+                                <li ng-click="openEditGoalDialog(area._id, goal)" class="list-group-item editable-item " ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict">
                                     {{goal.description || "Edit this field. "}}
                                 </li>
                             </ul>

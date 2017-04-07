@@ -9,9 +9,18 @@
  */
 
 angular.module('CheckmateLifeApp')
-    .factory('PurposeFactory', [function() {
+    .factory('PurposeFactory', ['$resource', 'baseURL', function($resource, baseURL) {
 
         return $resource(baseURL + "purpose/:id", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+    }])
+    .factory('ValuesFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+        return $resource(baseURL + "purpose/:purposeId/values/:id", null, {
             'update': {
                 method: 'PUT'
             }

@@ -1,9 +1,12 @@
 <div class="content-container">
     <div class="row swot-matrix">
-        <div class="col-xs-12 col-sm-3 swot-box" ng-repeat="context in contexts">
+        <div class="col-xs-12 col-sm-3 swot-box" ng-repeat="context in contexts | orderBy: 'name'">
             <div class="row" ng-style="{ 'background-color' : context['color-bg']}">
                 <div class="col-xs-1 swot-header">
-                    <div><a class="btn btn-primary" ng-click="addValue(context._id)"><span class="fa fa-plus"></span></a></div>
+                    <div>
+                        <a class="btn btn-primary" ng-click="addValue(context)"><span class="fa fa-plus"></span></a>
+                        <a class="btn btn-danger" ng-class="{'btn-active':enableRemoveButton}" ng-click="enableRemoveButton = !enableRemoveButton"><span class="fa fa-times"></span></a>
+                    </div>
                     <div class="swot-context-title" ng-style="{ 'color' : context['color']}">
                         <div>{{context.name}}</div>
                     </div>
@@ -12,8 +15,11 @@
                     <div class="row ">
                         <div class="col-xs-12 swot-content ">
                             <ul class="list-group swot-list-values ">
-                                <li ng-click="swotEditClick.$show() " editable-text="value.description " class="list-group-item editable-item " ng-repeat="value in context.facts " e-form="swotEditClick ">
-                                    {{value.description || "Edit this field. "}}
+                                <li class="list-group-item" ng-repeat="value in context.facts ">
+                                    <span class="editable-item" ng-click="swotEditClick.$show()" onbeforesave="saveValueContent(context._id, value._id, $data)" editable-text="value.description" e-form="swotEditClick">
+                                        {{value.description || "Edit this field. "}}
+                                    </span>
+                                    <a class="btn btn-danger" ng-click="rmValue(context, value)" style="position: absolute; padding:1px 10px 1px 10px; right:7px;" ng-if="enableRemoveButton"><span class="fa fa-trash"></span></a>
                                 </li>
                             </ul>
                         </div>
