@@ -8,14 +8,18 @@
  * Factory of the CheckmateLifeApp
  */
 
-angular.module('CheckmateLifeApp')
-    .factory('GoalsFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+var app = angular.module('CheckmateLifeApp');
 
+app.constant('METRIC_TYPE', {
+    tasks: "Number of completed tasks."
+})
 
-        return $resource(baseURL + "goals/:id", null, {
-            'update': {
-                method: 'PUT'
-            }
-        });
+app.factory('GoalsFactory', ['$resource', 'baseURL', function($resource, baseURL) {
 
-    }]);
+    return $resource(baseURL + "goals/:id", null, {
+        'update': {
+            method: 'PUT'
+        }
+    });
+
+}]);

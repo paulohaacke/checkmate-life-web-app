@@ -1,0 +1,22 @@
+<div class="content-container">
+    <div class="row row-dashboard-lifearea" ng-repeat="area in lifeAreas | orderBy: 'label'" ng-style="{ 'background-color' : area['color-bg'] }">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 col-lifearea-summary">
+                    <h3 ng-style="{ 'color' : area['color'] }">{{area.label}}</h3>
+                    <h1>{{getMetricStatusForArea(area)}}</h1>
+                    <h6>Completed Tasks</h6>
+                </div>
+                <div class="col-xs-12 col-sm-2 col-goal-summary" ng-repeat="goal in goals | filter : filterMetrics(area._id) : strict">
+                    <h3>{{goal.description}}</h3>
+                    <div class="row">
+                        <div class="col-xs-12" ng-repeat="metric in goal.metrics">
+                            <h1>{{getMetricStatus(goal, metric)}}</h1>
+                            <h6>{{metric.description}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

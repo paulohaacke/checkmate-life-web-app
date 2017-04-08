@@ -18,7 +18,6 @@ angular.module('CheckmateLifeApp')
                         .then(function(response) {
                             if (response.success) {
                                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                                //$scope.setCurrentUser(username);
                                 ngDialog.close();
                                 $state.go('app.purpose');
                             } else {

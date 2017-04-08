@@ -1,6 +1,6 @@
 <div class="content-container">
     <div class="row swot-matrix">
-        <div class="col-xs-12 col-sm-3 swot-box" ng-repeat="area in lifeAreas">
+        <div class="col-xs-12 col-sm-3 swot-box" ng-repeat="area in lifeAreas | orderBy: 'label'">
             <div class="row" ng-style="{ 'background-color' : area['color-bg']}">
                 <div class="col-xs-1 swot-header">
                     <div><a class="btn btn-primary" ng-click="openAddGoalDialog(area._id)"><span class="fa fa-plus"></span></a></div>
@@ -17,7 +17,7 @@
                                     <span class="editable-item" ng-click="openEditGoalDialog(area._id, goal)" onbeforesave="saveValueContent(context._id, value._id, $data)">
                                         {{goal.description || "Edit this field. "}}
                                     </span>
-                                    <a class="btn btn-danger" ng-click="rmGoal(area, goal)" style="position: absolute; padding:1px 10px 1px 10px; right:7px;" ng-if="enableRemoveButton"><span class="fa fa-trash"></span></a>
+                                    <a class="btn btn-danger" ng-click="rmGoal(goal)" style="position: absolute; padding:1px 10px 1px 10px; right:7px;" ng-if="enableRemoveButton"><span class="fa fa-trash"></span></a>
                                 </li>
                             </ul>
                         </div>

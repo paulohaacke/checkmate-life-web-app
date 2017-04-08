@@ -8,6 +8,8 @@
  * Factory of the CheckmateLifeApp
  */
 
+var app = angular.module('CheckmateLifeApp');
+
 app.constant('TASK_STATES', {
     todo: 'todo',
     doing: 'doing',
@@ -15,40 +17,13 @@ app.constant('TASK_STATES', {
     archive: 'archive'
 });
 
-angular.module('CheckmateLifeApp')
-    .factory('TasksFactory', ['TASK_STATES', function(TASK_STATES) {
 
-        /*return $resource(baseURL + "feedback/:id", null, {
-            'update': {
-                method: 'PUT'
-            }
-        });*/
+app.factory('TasksFactory', ['TASK_STATES', '$resource', 'baseURL', function(TASK_STATES, $resource, baseURL) {
 
-        return [{
-            id: 1,
-            goalId: 2,
-            description: "My first action",
-            state: TASK_STATES.todo
-        }, {
-            id: 2,
-            goalId: 3,
-            description: "My second action",
-            state: TASK_STATES.done
-        }, {
-            id: 3,
-            goalId: 1,
-            description: "My third action",
-            state: TASK_STATES.todo
-        }, {
-            id: 4,
-            goalId: 1,
-            description: "My fourth action",
-            state: TASK_STATES.doing
-        }, {
-            id: 5,
-            goalId: 3,
-            description: "My fifth action",
-            state: TASK_STATES.todo
-        }];
+    return $resource(baseURL + "tasks/:id", null, {
+        'update': {
+            method: 'PUT'
+        }
+    });
 
-    }])
+}])

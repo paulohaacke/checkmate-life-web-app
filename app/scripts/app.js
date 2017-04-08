@@ -27,7 +27,6 @@ app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdCom
         AuthenticationSrvc.loadUserSession();
         if (next.data) {
             var authorizedRoles = next.data.authorizedRoles;
-            console.log("Changing authorization, authroles: " + authorizedRoles)
             if (!AuthenticationSrvc.isAuthorized(authorizedRoles)) {
                 event.preventDefault();
                 if (AuthenticationSrvc.isAuthenticated()) {
@@ -85,8 +84,12 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/dashboard.html',
-                controller: 'DashboardCtrl'
-
+                controller: 'DashboardCtrl',
+                resolve: {
+                    tasks: function(TasksFactory) { return TasksFactory.query(); },
+                    goals: function(GoalsFactory) { return GoalsFactory.query(); },
+                    lifeAreas: function(LifeAreaFactory) { return LifeAreaFactory.query() }
+                }
             }
         },
         data: {
@@ -138,7 +141,12 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
         views: {
             'content@': {
                 templateUrl: 'views/tasks.html',
-                controller: 'TasksCtrl'
+                controller: 'TasksCtrl',
+                resolve: {
+                    tasks: function(TasksFactory) { return TasksFactory.query(); },
+                    goals: function(GoalsFactory) { return GoalsFactory.query(); },
+                    lifeAreas: function(LifeAreaFactory) { return LifeAreaFactory.query() }
+                }
             }
         },
         data: {
@@ -152,6 +160,19 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
             'content@': {
                 templateUrl: 'views/strategy-map.html',
                 controller: 'StrategyMapCtrl'
+            }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.normal]
+        }
+    });
+
+    $stateProvider.state('app.profile', {
+        url: 'profile',
+        views: {
+            'content@': {
+                templateUrl: 'views/profile.html',
+                controller: 'ProfileCtrl'
             }
         },
         data: {

@@ -12,36 +12,42 @@ var app = angular.module('CheckmateLifeApp');
 
 app.controller('AddTaskCtrl', ['$scope', 'GoalsFactory', 'TasksFactory', 'ngDialog', 'TASK_STATES', function($scope, GoalsFactory, TasksFactory, ngDialog, TASK_STATES) {
 
-    $scope.goals = GoalsFactory;
-    $scope.tasks = TasksFactory;
-    $scope.isEditDialog = $scope.ngDialogData !== undefined && $scope.ngDialogData.taskId !== undefined;
+    //$scope.goals = GoalsFactory;
+    //$scope.tasks = TasksFactory;
+    $scope.isEditDialog = $scope.ngDialogData !== undefined && $scope.ngDialogData.task !== undefined;
     $scope.editTask = {};
     $scope.taskData = {};
 
     if ($scope.isEditDialog) {
-        $scope.editTask = $scope.tasks.find(function(el) { return $scope.ngDialogData.taskId == el.id; });
-        $scope.taskData.description = $scope.editTask.description;
-        $scope.taskData.goal = $scope.goals.find(function(el) { return $scope.editTask.goalId == el.id; });
+        TasksFactory.get({ id: $scope.ngDialogData.task._id })
+            .$promise.then(function(response) {
+                $scope.taskData.description = response.description;
+                $scope.taskData.goal = response.goal;
+                $scope.editTask = response;
+            });
     }
 
     $scope.performAddTask = function() {
+        var sendData = $scope.taskData;
         if ($scope.isEditDialog) {
-            $scope.editTask.description = $scope.taskData.description;
-            $scope.editTask.goalId = $scope.taskData.goal.id;
+            TasksFactory.update({ id: $scope.editTask._id }, sendData,
+                function(response) {
+                    $scope.ngDialogData.task.description = response.description;
+                    $scope.ngDialogData.task.goal = response.goal;
+                    $scope.ngDialogData.task.state = response.state;
+                    ngDialog.close();
+                });
         } else {
-            var taskId = $scope.tasks[$scope.tasks.length - 1].id + 1;
-            $scope.tasks.push({
-                id: taskId,
-                goalId: $scope.taskData.goal.id,
-                description: $scope.taskData.description,
-                state: TASK_STATES.todo
-            });
+            TasksFactory.save(sendData,
+                function(response) {
+                    $scope.ngDialogData.tasks.push(response);
+                    ngDialog.close();
+                });
         }
-        ngDialog.close();
     }
 
     $scope.performEraseTask = function() {
-        $scope.tasks.splice($scope.tasks.indexOf($scope.editTask), 1);
+        $scope.rmTask($scope.ngDialogData.task);
         ngDialog.close();
     }
 

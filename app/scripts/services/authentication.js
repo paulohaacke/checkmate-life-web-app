@@ -74,9 +74,11 @@ app.service('AuthenticationSrvc', ['$localStorage', 'baseURL', 'USER_ROLES', 'Se
     }
 
     this.logout = function() {
-        SessionSrvc.destroy();
-        $localStorage.remove(TOKEN_KEY);
-        $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+        $resource(baseURL + "users/logout").get(function(response) {
+            SessionSrvc.destroy();
+            $localStorage.remove(TOKEN_KEY);
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+        })
     }
 
     this.loadUserSession();

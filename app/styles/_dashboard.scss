@@ -1,0 +1,22 @@
+.row-dashboard-lifearea {
+    margin: 15px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    &>h3 {
+        font-weight: 600;
+        font-size: 38px;
+    }
+}
+
+.col-lifearea-summary {}
+
+.col-goal-summary {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    margin: 3px;
+    &>h3 {
+        font-weight: 600;
+        font-size: 38px;
+    }
+}

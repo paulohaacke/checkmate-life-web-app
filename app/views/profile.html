@@ -1,0 +1,26 @@
+<div class="container bkg-profile">
+    <div class="row main-row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="row main-row">
+                <div class="col-xs-12">
+                    <span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>
+                </div>
+                <div class="col-xs-12 profile-information">
+                    <div class="row">
+                        <div class="col-xs-3">User:</div>
+                        <div class="col-xs-9">{{user.username}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">Email:</div>
+                        <div class="col-xs-9">{{user.email}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <button class="btn btn-danger btn-block" ui-sref="app" ng-click="deleteUser()">Delete User</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

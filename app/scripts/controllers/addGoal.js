@@ -10,12 +10,12 @@
 
 var app = angular.module('CheckmateLifeApp');
 
-app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFactory', 'ngDialog', '$filter', function($scope, $state, LifeAreaFactory, GoalsFactory, ngDialog, $filter) {
+app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFactory', 'ngDialog', '$filter', 'METRIC_TYPE', function($scope, $state, LifeAreaFactory, GoalsFactory, ngDialog, $filter, METRIC_TYPE) {
 
-    $scope.metricTypes = ["Number of completed tasks."];
-    $scope.lifeAreas = LifeAreaFactory.query();
-    $scope.goals = GoalsFactory.query();
-    $scope.isEditDialog = $scope.ngDialogData.goal !== undefined;
+    $scope.metricTypes = [METRIC_TYPE.tasks];
+    //$scope.lifeAreas = LifeAreaFactory.query();
+    //$scope.goals = GoalsFactory.query();
+    $scope.isEditDialog = $scope.ngDialogData !== undefined && $scope.ngDialogData.goal !== undefined;
     $scope.editGoal = {};
     $scope.goalData = {};
 
@@ -34,8 +34,8 @@ app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFact
 
     $scope.performAddGoal = function() {
         var sendData = $scope.goalData;
-        sendData.metrics = sendData.metrics !== undefined ? [{ description: sendData.metrics }] : [];
-        sendData.dependencies = Object.keys($scope.goalData.dependencies).filter(function(key) {
+        sendData.metrics = sendData.metrics === $scope.metricTypes[0] ? [{ description: sendData.metrics }] : [];
+        sendData.dependencies = $scope.goalData.dependencies === undefined ? [] : Object.keys($scope.goalData.dependencies).filter(function(key) {
             return ($scope.goalData.dependencies[key] === true);
         }, {});
         if ($scope.isEditDialog) {
@@ -56,10 +56,11 @@ app.controller('AddGoalCtrl', ['$scope', '$state', 'LifeAreaFactory', 'GoalsFact
     }
 
     $scope.performEraseGoal = function() {
-        GoalsFactory.delete({ id: $scope.editGoal._id },
-            function(response) {
-                $scope.ngDialogData.goals.splice($scope.ngDialogData.goals.indexOf($scope.ngDialogData.goal), 1);
-            });
+        $scope.rmGoal($scope.ngDialogData.goal);
+        //GoalsFactory.delete({ id: $scope.editGoal._id },
+        //    function(response) {
+        //        $scope.ngDialogData.goals.splice($scope.ngDialogData.goals.indexOf($scope.ngDialogData.goal), 1);
+        //    });
         ngDialog.close();
     }
 

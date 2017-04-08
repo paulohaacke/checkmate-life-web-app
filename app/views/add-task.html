@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="goals">Goal</label>
-                <select class="form-control input-sm" id="goals" ng-options="goal.description for goal in goals track by goal.id" ng-model="taskData.goal">
+                <select class="form-control input-sm" id="goals" ng-options="goal._id as goal.description for goal in goals" ng-model="taskData.goal">
                     <option value="">None</option>
                 </select>
             </div>

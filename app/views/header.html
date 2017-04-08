@@ -27,7 +27,7 @@
                         <a ng-href="#" ng-click="openRegistrationDialog()">Sign Up</a>
                     </li>
                     <li ng-if="isAuthenticated" class="active">
-                        <a class="navbar-username"><span class="fa fa-user-circle" aria-hidden="true"></span> {{username}}</a>
+                        <a ui-sref="app.profile" class="navbar-username">{{username}} <span class="fa fa-user-circle" aria-hidden="true"></span></a>
                     </li>
                     <li ng-if="isAuthenticated">
                         <a ng-href="#" ng-click="performLogout()">Logout</a>
