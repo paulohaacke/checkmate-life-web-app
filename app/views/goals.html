@@ -4,6 +4,7 @@
             <div class="row" ng-style="{ 'background-color' : area['color-bg']}">
                 <div class="col-xs-1 swot-header">
                     <div><a class="btn btn-primary" ng-click="openAddGoalDialog(area._id)"><span class="fa fa-plus"></span></a></div>
+                    <a class="btn btn-danger" ng-class="{'btn-active':enableRemoveButton}" ng-click="enableRemoveButton = !enableRemoveButton"><span class="fa fa-times"></span></a>
                     <div class="swot-context-title" ng-style="{ 'color' : area['color']}">
                         <div>{{area.label}}</div>
                     </div>
@@ -12,8 +13,11 @@
                     <div class="row ">
                         <div class="col-xs-12 swot-content ">
                             <ul class="list-group swot-list-values ">
-                                <li ng-click="openEditGoalDialog(area._id, goal)" class="list-group-item editable-item " ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict">
-                                    {{goal.description || "Edit this field. "}}
+                                <li class="list-group-item" ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict">
+                                    <span class="editable-item" ng-click="openEditGoalDialog(area._id, goal)" onbeforesave="saveValueContent(context._id, value._id, $data)">
+                                        {{goal.description || "Edit this field. "}}
+                                    </span>
+                                    <a class="btn btn-danger" ng-click="rmGoal(area, goal)" style="position: absolute; padding:1px 10px 1px 10px; right:7px;" ng-if="enableRemoveButton"><span class="fa fa-trash"></span></a>
                                 </li>
                             </ul>
                         </div>

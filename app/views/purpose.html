@@ -7,7 +7,7 @@
                     <span class="fa fa-road"></span>
                 </div>
                 <div class="col-xs-10 col-lg-11 purpose-box-content editable-item">
-                    <span id="editable-text" editable-textarea="purpose.mission" e-rows="3" e-form="missionEditClick">{{purpose.mission || "Where do you want to be in 10 years?"}}</span>
+                    <span id="editable-text" editable-textarea="purpose.mission" e-rows="3" e-form="missionEditClick" onbeforesave="saveMission(purpose._id, $data)">{{purpose.mission || "Where do you want to be in 10 years?"}}</span>
                 </div>
             </div>
         </div>
@@ -18,14 +18,14 @@
                     <span class="fa fa-bullseye"></span>
                 </div>
                 <div class="col-xs-10 col-lg-11 purpose-box-content editable-item">
-                    <span id="editable-text" editable-textarea="purpose.vision" e-rows="3" e-form="visionEditClick">{{purpose.vision || "How do you want to be seen in 10 years?"}}</span>
+                    <span id="editable-text" editable-textarea="purpose.vision" e-rows="3" e-form="visionEditClick" onbeforesave="saveVision(purpose._id, $data)">{{purpose.vision || "How do you want to be seen in 10 years?"}}</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="row row-purpose-box">
         <div class="col-xs-12 purpose-box">
-            <div class=" values">
+            <div class="values">
                 <div class="row row-purpose-box">
                     <div class="col-xs-1 purpose-box-symbol purpose-symbol-values">
                         <span class="hidden-xs hidden-sm">Values</span>
@@ -35,13 +35,13 @@
                         <h3>What are the things you most value in your journey?</h3>
                     </div>
                     <div class="col-xs-1 purpose-box-symbol text-right purpose-symbol-addvalue">
-                        <a class="btn btn-primary" ng-click="addValue()"><span class="fa fa-plus"></span></a>
+                        <a class="btn btn-primary" ng-click="addValue(purpose)"><span class="fa fa-plus"></span></a>
                     </div>
                 </div>
                 <div class="row row-purpose-box">
                     <div class="col-xs-12">
                         <ul class="list-group purpose-list-values">
-                            <li ng-click="valueEditClick.$show()" editable-text="value.content" class="list-group-item editable-item" ng-repeat="value in values" e-form="valueEditClick">{{value.content || "Edit this field with a value you have in life!"}}</li>
+                            <li ng-click="valueEditClick.$show()" editable-text="value.content" class="list-group-item editable-item" ng-repeat="value in purpose.values" e-form="valueEditClick" onbeforesave="saveValueContent(purpose._id, value._id, $data)">{{value.content || "Edit this field with a value you have in life!"}}</li>
                         </ul>
                     </div>
                 </div>

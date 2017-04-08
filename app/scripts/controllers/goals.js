@@ -51,4 +51,12 @@ angular.module('CheckmateLifeApp')
             });
         };
 
+        $scope.rmGoal = function(area, goal) {
+            GoalsFactory.delete({ id: goal._id },
+                function(response) {
+                    $scope.goals.splice($scope.goals.indexOf(goal), 1);
+                });
+            ngDialog.close();
+        }
+
     }]);
