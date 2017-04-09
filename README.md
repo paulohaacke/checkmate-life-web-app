@@ -1,4 +1,4 @@
-# checkmate-life-web-app
+# Checkmate Life Web App
 
 ## Versioning
 
