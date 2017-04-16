@@ -8,7 +8,7 @@
  * Controller of the CheckmateLifeApp
  */
 angular.module('CheckmateLifeApp')
-    .controller('MainCtrl', ['$scope', '$rootScope', '$state', 'ngDialog', 'SessionSrvc', 'AuthenticationSrvc', 'AUTH_EVENTS', '$mdSidenav', '$timeout', function($scope, $rootScope, $state, ngDialog, SessionSrvc, AuthenticationSrvc, AUTH_EVENTS, $mdSidenav, $timeout) {
+    .controller('MainCtrl', ['$scope', '$rootScope', '$state', 'ngDialog', 'SessionSrvc', 'AuthenticationSrvc', 'AUTH_EVENTS', '$mdSidenav', '$timeout', '$stateParams', 'isLoginDialogOpen', function($scope, $rootScope, $state, ngDialog, SessionSrvc, AuthenticationSrvc, AUTH_EVENTS, $mdSidenav, $timeout, $stateParams, isLoginDialogOpen) {
 
         $scope.openRegistrationDialog = function() {
             ngDialog.open({
@@ -27,6 +27,12 @@ angular.module('CheckmateLifeApp')
                 controller: 'LoginCtrl'
             });
         };
+
+        $scope.isLoginDialogOpen = isLoginDialogOpen;
+        if ($stateParams.openLogin === "true" && $scope.isLoginDialogOpen === false) {
+            $scope.isLoginDialogOpen = true;
+            $scope.openLoginDialog();
+        }
 
         $scope.performLogout = function() {
             AuthenticationSrvc.logout();

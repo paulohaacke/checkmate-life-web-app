@@ -11,7 +11,7 @@
 
 var app = angular.module('CheckmateLifeApp', ['ui.router', 'ngDialog', 'xeditable', 'ngMaterial', 'ngResource']);
 
-app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdComponentRegistry, SessionSrvc) {
+app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdComponentRegistry, SessionSrvc, $state) {
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
         $rootScope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
@@ -21,6 +21,18 @@ app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdCom
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
         $rootScope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
         $rootScope.username = SessionSrvc.userId;
+    });
+
+    $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
+        $state.go('app', { "openLogin": "true" });
+    });
+
+    $rootScope.$on(AUTH_EVENTS.sessionTimeout, function() {
+        $state.go('app', { "openLogin": "true" });
+    });
+
+    $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
+        $state.go('app', { "openLogin": "true" });
     });
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
@@ -57,18 +69,28 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     // Home route
     $stateProvider.state('app', {
         url: '/',
+        params: { openLogin: null },
         views: {
             'sidemenu': {
                 templateUrl: 'views/sidemenu.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                resolve: {
+                    isLoginDialogOpen: function() { return true; }
+                }
             },
             'header': {
                 templateUrl: 'views/header.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                resolve: {
+                    isLoginDialogOpen: function() { return false; }
+                }
             },
             'content': {
                 templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                resolve: {
+                    isLoginDialogOpen: function() { return true; }
+                }
             },
             'footer': {
                 templateUrl: 'views/footer.html'
