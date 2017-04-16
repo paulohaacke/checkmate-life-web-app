@@ -17,6 +17,22 @@
     margin: 3px;
     &>h3 {
         font-weight: 600;
-        font-size: 38px;
+        font-size: 18px;
     }
+    h1 {
+        margin: 5px;
+    }
+}
+
+.dashboard-content .row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard-content .row>[class*='col-'] {
+    display: flex;
+    flex-direction: column;
 }

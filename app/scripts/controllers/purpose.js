@@ -27,7 +27,19 @@ angular.module('CheckmateLifeApp')
                 });
         }
 
-        $scope.removeValue = function(index) {}
+        $scope.rmValue = function(purposeId, value) {
+            ValuesFactory.delete({
+                    purposeId: purposeId,
+                    id: value._id
+                },
+                function(response) {
+                    $scope.purpose.values.splice($scope.purpose.values.indexOf(value), 1);
+                });
+        }
+
+        $scope.toggleDelete = function() {
+            $scope.enableRemoveButton = !$scope.enableRemoveButton;
+        }
 
         $scope.saveValueContent = function(purposeId, valueId, content) {
             var d = $q.defer();

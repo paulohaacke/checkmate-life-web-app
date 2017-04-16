@@ -8,7 +8,7 @@
         <div class="col-xs-12 col-sm-4">
             <h2 class="text-center"><strong>To Do</strong></h2>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="task in tasks | filter:{state:TASK_STATES.todo} track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
+                <li class="list-group-item" ng-repeat="task in tasks | filter:{state:TASK_STATES.todo} | orderBy: 'description' track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
                     <div class="row">
                         <div ng-click="openEditTaskDialog(task)" class="col-xs-11 editable-item task-text">
                             {{task.description || "Edit this field"}}
@@ -23,7 +23,7 @@
         <div class="col-xs-12 col-sm-4">
             <h2 class="text-center"><strong>Doing</strong></h2>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="task in tasks | filter:{state:TASK_STATES.doing} track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
+                <li class="list-group-item" ng-repeat="task in tasks | filter:{state:TASK_STATES.doing} | orderBy: 'description' track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
                     <div class="row">
                         <div ng-click="openEditTaskDialog(task)" class="col-xs-9 editable-item task-text">
                             {{task.description || "Edit this field"}}
@@ -41,7 +41,7 @@
         <div class="col-xs-12 col-sm-4">
             <h2 class="text-center"><strong>Done</strong></h2>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="task in tasks | filter:{state:TASK_STATES.done} track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
+                <li class="list-group-item" ng-repeat="task in tasks | filter:{state:TASK_STATES.done} | orderBy: 'description' track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
                     <div class="row">
                         <div ng-click="openEditTaskDialog(task)" class="col-xs-11 editable-item task-text">
                             {{task.description || "Edit this field"}}

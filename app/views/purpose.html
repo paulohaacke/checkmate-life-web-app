@@ -31,17 +31,23 @@
                         <span class="hidden-xs hidden-sm">Values</span>
                         <span class="fa fa-star"></span>
                     </div>
-                    <div class="col-xs-10 text-center">
+                    <div class="col-xs-9 text-center">
                         <h3>What are the things you most value in your journey?</h3>
                     </div>
-                    <div class="col-xs-1 purpose-box-symbol text-right purpose-symbol-addvalue">
+                    <div class="col-xs-2 purpose-box-symbol text-right purpose-symbol-addvalue">
                         <a class="btn btn-primary" ng-click="addValue(purpose)"><span class="fa fa-plus"></span></a>
+                        <a class="btn btn-primary" ng-click="toggleDelete()"><span class="fa fa-minus"></span></a>
                     </div>
                 </div>
                 <div class="row row-purpose-box">
                     <div class="col-xs-12">
                         <ul class="list-group purpose-list-values">
-                            <li ng-click="valueEditClick.$show()" editable-text="value.content" class="list-group-item editable-item" ng-repeat="value in purpose.values" e-form="valueEditClick" onbeforesave="saveValueContent(purpose._id, value._id, $data)">{{value.content || "Edit this field with a value you have in life!"}}</li>
+                            <li class="list-group-item" ng-repeat="value in purpose.values | orderBy: 'content'">
+                                <span class="editable-item" e-form="valueEditClick" onbeforesave="saveValueContent(purpose._id, value._id, $data)" ng-click="valueEditClick.$show()" editable-text="value.content">
+                                    {{value.content || "Edit this field with a value you have in life!"}}
+                                </span>
+                                <a class="btn btn-danger" ng-click="rmValue(purpose._id, value)" style="position: absolute; padding:1px 10px 1px 10px; right:7px;" ng-if="enableRemoveButton"><span class="fa fa-trash"></span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

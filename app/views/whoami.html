@@ -15,7 +15,7 @@
                     <div class="row ">
                         <div class="col-xs-12 swot-content ">
                             <ul class="list-group swot-list-values ">
-                                <li class="list-group-item" ng-repeat="value in context.facts ">
+                                <li class="list-group-item" ng-repeat="value in context.facts | orderBy: 'description'">
                                     <span class="editable-item" ng-click="swotEditClick.$show()" onbeforesave="saveValueContent(context._id, value._id, $data)" editable-text="value.description" e-form="swotEditClick">
                                         {{value.description || "Edit this field. "}}
                                     </span>
