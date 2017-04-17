@@ -24,14 +24,17 @@ app.run(function($rootScope, AUTH_EVENTS, AuthenticationSrvc, $mdSidenav, $mdCom
     });
 
     $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
+        AuthenticationSrvc.logout();
         $state.go('app', { "openLogin": "true" });
     });
 
     $rootScope.$on(AUTH_EVENTS.sessionTimeout, function() {
+        AuthenticationSrvc.logout();
         $state.go('app', { "openLogin": "true" });
     });
 
     $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
+        AuthenticationSrvc.logout();
         $state.go('app', { "openLogin": "true" });
     });
 
@@ -203,4 +206,13 @@ app.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     });
 
     $urlRouterProvider.otherwise('/');
+});
+
+app.config(function($httpProvider) {
+    $httpProvider.interceptors.push([
+        '$injector',
+        function($injector) {
+            return $injector.get('AuthInterceptor');
+        }
+    ]);
 });

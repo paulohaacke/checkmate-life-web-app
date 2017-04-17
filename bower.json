@@ -11,7 +11,6 @@
     "angular-material-sidemenu": "^1.0.1",
     "cytoscape": "^2.7.16",
     "cytoscape-cola": "^1.5.0",
-    "webcola": "^3.3.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "angular-resource": "^1.6.4"
   },
@@ -26,6 +25,12 @@
         "less/bootstrap.less",
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "less/font-awesome.less",
+        "css/font-awesome.css"
       ]
     }
   }

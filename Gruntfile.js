@@ -373,7 +373,7 @@ module.exports = function(grunt) {
         ngtemplates: {
             dist: {
                 options: {
-                    module: 'checkmateLifeWebAppApp',
+                    module: 'CheckmateLifeApp',
                     htmlmin: '<%= htmlmin.dist.options %>',
                     usemin: 'scripts/scripts.js'
                 },
@@ -426,6 +426,11 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: '.',
                     src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+                    dest: '<%= yeoman.dist %>'
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/font-awesome/',
+                    src: 'fonts/*',
                     dest: '<%= yeoman.dist %>'
                 }]
             },
